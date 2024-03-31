@@ -2,8 +2,8 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: circleci/php:7-zts-buster-node-browsers-legacy
-      - image: circleci/mysql:8-debian-ram
+      - image: cimg/php:8.3.4
+      - image: cimg/mysql:8.0
     environment:
       - DB_CONNECTION: circle_testing
     working_directory: ~/ci-demo
@@ -23,7 +23,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Install PHP libraries
-          command: composer install -n --prefer-dist
+          command: composer install
       - save_cache:
           paths:
             - vendor
