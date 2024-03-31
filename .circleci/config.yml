@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7-zts-buster-node-browsers-legacy
-      - image: circleci/mysql:5-oracle-ram
+      - image: circleci/mysql:8-debian-ram
     environment:
       - DB_CONNECTION: circle_testing
     working_directory: ~/ci-demo
@@ -11,7 +11,9 @@ jobs:
       - checkout
       - run:
           name: Update apt-get
-          command: sudo apt-get update
+          command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2
+            sudo apt-get update --allow-releaseinfo-change
       - run:
           name: Docker php extensions install
           command: sudo docker-php-ext-install pdo_mysql
